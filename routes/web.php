@@ -20,3 +20,19 @@ Route::get('/blog/contact','PagesController@getContact');
 
 Route::resource('/blog/posts', 'PostsController');
 Route::resource('/blog/comments', 'CommentsController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+/*
+Admin Commenting section
+*/
+Route::GET('admin/home','AdminController@index')->name('admin.home');
+Route::GET('admin/login','Admin\LoginController@showLoginForm')->name('admin.login');
+Route::POST('admin/login','Admin\LoginController@login');
+Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::GET('admin-password/reset','Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::POST('admin-password/reset','Admin\ResetPasswordController@reset');
+Route::GET('admin-password/reset/{token}','Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
