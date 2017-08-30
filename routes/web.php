@@ -27,7 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 /*
-Admin Commenting section
+Admin Route section
 */
 Route::GET('admin/home','AdminController@index')->name('admin.home');
 Route::GET('admin/login','Admin\LoginController@showLoginForm')->name('admin.login');
@@ -36,3 +36,13 @@ Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLink
 Route::GET('admin-password/reset','Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::POST('admin-password/reset','Admin\ResetPasswordController@reset');
 Route::GET('admin-password/reset/{token}','Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+Route::GET('admin/register','Admin\RegisterController@showRegistrationForm')->name('admin.register');
+Route::POST('admin/register','Admin\RegisterController@register'); 
+
+/*
+ * Admin component section
+ *
+ */
+
+Route::GET('admin/allPosts','PagesController@getPosts');
+Route::GET('admin/allComments','PagesController@getComments');

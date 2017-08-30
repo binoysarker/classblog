@@ -19,8 +19,7 @@
 					<input type="text" class="form-control" name="title" id="formGroupExampleInput" value="{{$post->title}}" required="">
 				</fieldset>
 				<fieldset class="form-group">
-					<label for="formGroupExampleInput2">Body</label>
-					<textarea class="form-control" name="body" rows="5" id="formGroupExampleInput2" value="Body" required="">{{$post->body}} </textarea>
+					<textarea class="form-control" name="body" id="summernote" value="Body" required="">{{$post->body}} </textarea>
 				</fieldset>
 				<fieldset class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" value="Update Post">
@@ -28,6 +27,13 @@
 			</form>
 		</div>
 	</div>
+
+
+	<script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+	</script>
 	
 
 @endsection

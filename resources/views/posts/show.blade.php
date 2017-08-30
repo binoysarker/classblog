@@ -12,7 +12,7 @@
 	  <h2 class="blog-post-title">{{$post->title}}</h2>
 	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Mark</a></p>
 
-	  <p class="m-3">{{$post->body}} </p>
+	  <div class="m-3"><p class="m-3">{!! $post->body !!} </p></div>
 	  <p class="m-3"><a href="{{ url('/blog/posts') }}{{'/'.$post->id.'/edit'}} " class="btn btn-info" title="">Edit Post</a></p>
 	  
 	  {{-- comments section --}}

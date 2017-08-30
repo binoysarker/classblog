@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -46,6 +47,8 @@ class LoginController extends Controller
     {
         return view('admin.login');
     }
+    
+
     /**
      * Get the guard to be used during authentication.
      *
