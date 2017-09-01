@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.app')
 @section('title')
     {{-- expr --}}
     Admin Login
@@ -7,7 +7,7 @@
 @section('content')
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{asset('admin/home')}}"><b>Admin</b>LTE</a>
+    <a href="{{url('admin/home')}}"><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.app')
 @section('title')
     {{-- expr --}}
     Admin Register

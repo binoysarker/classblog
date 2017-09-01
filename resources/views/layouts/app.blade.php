@@ -86,7 +86,7 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="{{route('admin.home')}} " class="logo">
+        <a href="{{route('admin.index')}} " class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
@@ -229,7 +229,28 @@
         </section>
 
         <!-- Main content -->
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    @yield('allPosts')
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    @yield('allComments')
+                </div>
+            </div>
+        </div>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

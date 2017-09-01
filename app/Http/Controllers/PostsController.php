@@ -4,9 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public $posts;
+    public function __construct()
+    {
+        $this->posts = new Post();
+
+        $this->middleware('auth');
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        switch (Auth::guard()){
+            case 'guest':
+                return Auth::guard('guest');
+            break;
+            default:
+                return Auth::guard('admin');
+            break;
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +44,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+//        $posts = new Post;
+        $posts = $this->posts->latest()->get();
         return view('posts.index',compact('posts'));
     }
 
@@ -40,15 +71,17 @@ class PostsController extends Controller
             'title' =>  'required|max:10',    
             'body' =>  'required'    
             ]);
-        $posts = Post::create(request(['title','body']));
+
+        $this->posts->create(request(['title','body']));
         return redirect('/blog/posts');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Post $post
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
     public function show(Post $post)
     {
@@ -63,7 +96,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = $this->posts->find($id);
         return view('posts.edit',compact('post'));
     }
 
@@ -80,8 +113,8 @@ class PostsController extends Controller
             'title' =>  'required|max:10',    
             'body' =>  'required'    
             ]);
-        $posts = Post::find($id);
-        $posts->update(request(['title','body']));
+        $this->posts->find($id);
+        $this->posts->update(request(['title','body']));
         session()->flash('message','Data Updated Successfuly');
         return redirect('/blog/posts');
         

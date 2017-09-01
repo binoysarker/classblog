@@ -1,34 +1,59 @@
 
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{asset('css/normalize.min.css')}}">
 
-  
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/tether.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+{{--    <script src="{{ asset('js/custom.js') }}"></script>--}}
+
+
 </head>
-<body class="hold-transition login-page">
 
-@yield('content')
+<body>
+<div class="form">
 
-<!-- /.login-box -->
+    <ul class="tab-group">
+        <li class="tab active"><a href="{{url('register')}}">Sign Up</a></li>
+        <li class="tab"><a href="{{url('login')}}">Log In</a></li>
+    </ul>
 
-<!-- jQuery 3 -->
-<script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('js/tether.min.js') }}"></script>
-<!-- Bootstrap -->
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <div class="tab-content">
+
+            @yield('userregister')
+
+
+
+            {{------------------------}}
+
+
+
+
+
+
+
+
+
+            @yield('userlogin')
+
+            {{----------------------------------------------}}
+
+
+
+
+
+    </div><!-- tab-content -->
+
+</div> <!-- /form -->
+
+
 </body>
 </html>

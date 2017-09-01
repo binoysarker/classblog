@@ -3,7 +3,7 @@
 	{{-- expr --}}
 	All Comments
 @endsection
-@section('content')
+@section('allComments')
 	{{-- expr --}}
 	<div class="box box-primary">
 		<div class="box-header">

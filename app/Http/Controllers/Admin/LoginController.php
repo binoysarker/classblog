@@ -32,7 +32,6 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -46,6 +45,12 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('admin.login');
+    }
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard('admin')->attempt(
+            $this->credentials($request), $request->has('remember')
+        );
     }
     
 

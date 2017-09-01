@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.index');
 });
 Route::get('/blog','PagesController@getIndex');
 Route::get('/blog/about','PagesController@getAbout');
@@ -29,7 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 /*
 Admin Route section
 */
-Route::GET('admin/home','AdminController@index')->name('admin.home');
+Route::GET('/admin','AdminController@index')->name('admin.index');
 Route::GET('admin/login','Admin\LoginController@showLoginForm')->name('admin.login');
 Route::POST('admin/login','Admin\LoginController@login');
 Route::POST('admin-password/email','Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -44,5 +44,7 @@ Route::POST('admin/register','Admin\RegisterController@register');
  *
  */
 
-Route::GET('admin/allPosts','PagesController@getPosts');
-Route::GET('admin/allComments','PagesController@getComments');
+Route::GET('admin/allPosts','AdminController@getPosts');
+Route::GET('admin/allComments','AdminController@getComments');
+
+Route::resource('/admin','AdminController');

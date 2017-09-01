@@ -9,6 +9,33 @@ use App\Post;
 class CommentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        switch (Auth::guard()){
+            case 'guest':
+                return Auth::guard('guest');
+                break;
+            default:
+                return Auth::guard('admin');
+                break;
+        }
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

@@ -8,7 +8,7 @@
 	<div class="col-sm-8 blog-main">
 
 	<div class="blog-post">
-		<img src="{{ asset('images/post1.jpg') }}" class="card-img" alt="">
+	  <img src="{{ asset('images/post1.jpg') }}" class="card-img" alt="">
 	  <h2 class="blog-post-title">{{$post->title}}</h2>
 	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Mark</a></p>
 

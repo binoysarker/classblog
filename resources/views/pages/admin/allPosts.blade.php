@@ -3,6 +3,10 @@
 	{{-- expr --}}
 	All Posts
 @endsection
+@section('custom.js')
+	<script src="{{asset('js/custom.js')}}"></script>
+@endsection
+
 @section('content')
 	{{-- expr --}}
 	<div class="box box-primary">
@@ -46,16 +50,14 @@
 			<button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add Post</button>
 		</div>
 	</div>
-@endsection
+		@endsection
 
 @section('customCss')
-            <style>
-                .main-footer{
-                    margin-left: 0;
-                }
-            </style>
+    <style>
+        .main-footer{
+            margin-left: 0;
+        }
+    </style>
 
 @endsection
-@section('custom.js')
-            <script !src="{{asset('js/custom.js')}}"></script>
-@endsection
+

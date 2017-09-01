@@ -29,9 +29,11 @@
 
   <body>
 
+
+
     @include('partials.header')
 
-    
+
 
     <div class="container">
 
@@ -46,5 +48,7 @@
     </div><!-- /.container -->
 
     @include('partials.footer')
+
+
   </body>
 </html>
