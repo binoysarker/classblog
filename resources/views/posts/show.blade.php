@@ -13,14 +13,14 @@
 	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Mark</a></p>
 
 	  <div class="m-3"><p class="m-3">{!! $post->body !!} </p></div>
-	  <p class="m-3"><a href="{{ url('/blog/posts') }}{{'/'.$post->id.'/edit'}} " class="btn btn-info" title="">Edit Post</a></p>
+	  <p class="m-3"><a href="{{ url('/blog/posts/'.$post->id.'/edit') }}" class="btn btn-info" title="">Edit Post</a></p>
 	  
 	  {{-- comments section --}}
 	  @foreach ($post->comments as $comment)
 	  	{{-- expr --}}
 	  	<div class="card-blockquote form-control">
 			<ul class="list-group">
-				<li class="list-group-item"><span class="mr-3"><strong>{{$comment->created_at->diffForHumans()}}</strong></span> {{$comment->body}}</li>
+				<li class="list-group-item"><span class="mr-3"><strong>{{$comment->created_at->diffForHumans()}}</strong></span> {!! $comment->body !!}</li>
 			</ul>
 	  	</div>
 

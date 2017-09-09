@@ -27,7 +27,7 @@
 					<input type="text" class="form-control" name="title" id="formGroupExampleInput" value="{{$post->title}}" required="">
 				</fieldset>
 				<fieldset class="form-group">
-					<textarea class="form-control" name="body" id="summernote" value="Body" required="">{{$post->body}} </textarea>
+					<textarea class="form-control" name="body" value="Body" >{{$post->body}} </textarea>
 				</fieldset>
 				<fieldset class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" value="Update Post">

@@ -13,9 +13,8 @@
 	  @foreach ($posts as $post)
 	  	{{-- expr --}}
 	  	<div class="blog-post">
-	  		<img src="{{ asset('images/post1.jpg') }}" class="card-img" alt="">
 	  	  <h2 class="blog-post-title">{{$post->title}}</h2>
-	  	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Mark</a></p>
+	  	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">{{auth()->user()->name}}</a></p>
 
 
           <div class="m-3"><p>{!!$post->body!!} </p></div>

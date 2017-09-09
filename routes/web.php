@@ -48,3 +48,7 @@ Route::GET('admin/allPosts','AdminController@getPosts');
 Route::GET('admin/allComments','AdminController@getComments');
 
 Route::resource('/admin','AdminController');
+
+/*
+ *get image of a location from instrogram using the google ali
+ */

@@ -13,10 +13,9 @@ class PostsController extends Controller
      *
      * @return void
      */
-    public $posts;
     public function __construct()
     {
-        $this->posts = new Post();
+
 
         $this->middleware('auth');
     }
@@ -45,7 +44,7 @@ class PostsController extends Controller
     public function index()
     {
 //        $posts = new Post;
-        $posts = $this->posts->latest()->get();
+        $posts = Post::latest()->get();
         return view('posts.index',compact('posts'));
     }
 
@@ -72,7 +71,9 @@ class PostsController extends Controller
             'body' =>  'required'    
             ]);
 
-        $this->posts->create(request(['title','body']));
+
+        Post::create(request(['title','body']));
+        session()->flash('message','Data Inserted Successfuly');
         return redirect('/blog/posts');
     }
 
@@ -96,7 +97,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = $this->posts->find($id);
+        $post = Post::find($id);
         return view('posts.edit',compact('post'));
     }
 
@@ -113,8 +114,8 @@ class PostsController extends Controller
             'title' =>  'required|max:10',    
             'body' =>  'required'    
             ]);
-        $this->posts->find($id);
-        $this->posts->update(request(['title','body']));
+        $post = Post::find($id);
+        $post->update(request(['title','body']));
         session()->flash('message','Data Updated Successfuly');
         return redirect('/blog/posts');
         

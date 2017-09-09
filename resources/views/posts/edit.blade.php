@@ -10,7 +10,7 @@
 			{{-- error message section --}}
 			@include('partials.errormessage', ['some' => 'data'])
 
-			<form action="{{ url('/blog/posts') }}{{'/'.$post->id}} " method="post">
+			<form action="{{ url('/blog/posts/'.$post->id) }}" method="post">
 				<legend><strong>Edit Post</strong></legend>
 				{{csrf_field()}}
 				{{method_field('PUT')}}
@@ -19,7 +19,7 @@
 					<input type="text" class="form-control" name="title" id="formGroupExampleInput" value="{{$post->title}}" required="">
 				</fieldset>
 				<fieldset class="form-group">
-					<textarea class="form-control" name="body" id="summernote" value="Body" required="">{{$post->body}} </textarea>
+					<textarea class="form-control" name="body" >{{$post->body}}</textarea>
 				</fieldset>
 				<fieldset class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" value="Update Post">
@@ -29,11 +29,10 @@
 	</div>
 
 
-	<script>
-        $(document).ready(function() {
-            $('#summernote').summernote();
-        });
-	</script>
+
+
+
+
 	
 
 @endsection

@@ -8,7 +8,7 @@
 	<div class="col-sm-8 blog-main">
 		<div class="jumbotron">
 			{{-- error message section --}}
-			@include('partials.errormessage', ['some' => 'data'])
+			@include('partials.errormessage')
 
 			<form action="{{ url('/blog/posts') }}" method="post">
 				<legend><strong>Create Post</strong></legend>
@@ -19,7 +19,7 @@
 				</fieldset>
 				<fieldset class="form-group">
 					<label for="formGroupExampleInput2">Body</label>
-					<textarea class="form-control" name="body" rows="5" id="formGroupExampleInput2" placeholder="Body" required=""></textarea>
+					<textarea class="form-control " name="body" id="formGroupExampleInput2" placeholder="Body" ></textarea>
 				</fieldset>
 				<fieldset class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" value="Post">

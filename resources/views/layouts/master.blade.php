@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../../public/favicon.ico">
 
     <title>Blog @yield('title')</title>
 
@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{ asset('css/tether.min.css') }}">
     <link href="{{ asset('css/bootstrap.css') }}"  rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/summernote.css')}}">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -22,7 +21,24 @@
     <script src="{{ asset('js/tether.min.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
-    <script src="{{asset('js/summernote.js')}}"></script>
+      {{--ckeditor section--}}
+      <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+      <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+      <script>
+          $(document).ready(function () {
+
+              var options = {
+                  filebrowserImageBrowseUrl: '{{url('/laravel-filemanager?type=Images')}}',
+                  filebrowserImageUploadUrl: '{{url('/laravel-filemanager/upload?type=Images&_token=')}}',
+                  filebrowserBrowseUrl: '{{url('/laravel-filemanager?type=Files')}}',
+                  filebrowserUploadUrl: '{{url('/laravel-filemanager/upload?type=Files&_token=')}}'
+              };
+              $('textarea').ckeditor(options);
+              // $('.textarea').ckeditor(); // if class is prefered.
+          })
+      </script>
+
+
 
 
   </head>
