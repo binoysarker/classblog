@@ -15,11 +15,11 @@
 				{{csrf_field()}}
 				<fieldset class="form-group">
 					<label for="formGroupExampleInput">Title</label>
-					<input type="text" class="form-control" name="title" id="formGroupExampleInput" placeholder="Title" required="">
+					<input type="text" class="form-control" name="PostTitle" id="formGroupExampleInput" placeholder="Title" required="">
 				</fieldset>
 				<fieldset class="form-group">
 					<label for="formGroupExampleInput2">Body</label>
-					<textarea class="form-control " name="body" id="formGroupExampleInput2" placeholder="Body" ></textarea>
+					<textarea class="form-control my-editor" name="PostBody" id="formGroupExampleInput2" placeholder="Body" ></textarea>
 				</fieldset>
 				<fieldset class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" value="Post">

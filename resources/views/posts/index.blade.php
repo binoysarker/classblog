@@ -13,11 +13,11 @@
 	  @foreach ($posts as $post)
 	  	{{-- expr --}}
 	  	<div class="blog-post">
-	  	  <h2 class="blog-post-title">{{$post->title}}</h2>
+	  	  <h2 class="blog-post-title">{{$post->PostTitle}}</h2>
 	  	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">{{auth()->user()->name}}</a></p>
 
 
-          <div class="m-3"><p>{!!$post->body!!} </p></div>
+          <div class="m-3"><p>{!!str_limit($post->PostBody,500,'....')!!} </p></div>
 	  	  <a href="{{ url('/blog/posts/') }}{{'/'.$post->id}} " class="btn btn-outline-info m-3" ><span><img src="{{ asset('images/more.png') }}" alt=""></span>READ MORE</a>
 	  	  <form class="d-inline-flex" action="{{ url('/blog/posts/') }}{{'/'.$post->id}}" method="post" >
 	  	  {{csrf_field()}}

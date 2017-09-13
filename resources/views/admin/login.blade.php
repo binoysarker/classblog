@@ -20,8 +20,6 @@
             <label for="email" class="control-label">E-Mail Address</label>
 
                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-
                 @if ($errors->has('email'))
                     <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -33,8 +31,6 @@
             <label for="password" class="col-md-4 control-label">Password</label>
 
                 <input id="password" type="password" class="form-control" name="password" required>
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-
                 @if ($errors->has('password'))
                     <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -47,8 +43,6 @@
                     <label>
                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                     </label>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
         </div>
 
         <div class="form-group">

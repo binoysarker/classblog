@@ -71,19 +71,36 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title' =>  'required|max:10',
-            'body' =>  'required'
-        ]);
+        if (isset($request->PostBody)){
+            $this->validate($request,[
+                'PostTitle' =>  'required|max:10',
+                'PostBody' =>  'required',
+            ]);
+            $this->posts->create(request(['PostTitle','PostBody']));
+            session()->flash('message','Data Stored Successfuly');
+            return redirect('/admin');
 
-        $this->posts->create(request(['title','body']));
-        session()->flash('message','Data Stored Successfuly');
-        return redirect('/admin');
+        }
+    else{
+        $this->validate($request,[
+                'CommentBody' =>  'required'
+            ]);
+
+        $this->comments->create([
+                'CommentBody'   =>  $request->CommentBody,
+                'post_id'       =>  $request->post_id
+            ]);
+        return redirect()->back();
     }
 
-    public function show(Post $post)
+    }
+
+    public function show($id)
     {
-        return view('admin.show',compact('post'));
+         $post = $this->posts->where('id',$id)->get();
+        $comments = $this->comments->where('post_id',$id)->get();
+//        return $post = Post::find($id)->get();
+        return view('admin.show',compact('post','comments'));
     }
     /*
      * to edit post for admin show a form
@@ -95,12 +112,22 @@ class AdminController extends Controller
     }
     public function update(Request $request, $id)
     {
+        if (isset($request->PostBody)){
+            $this->validate($request,[
+                'PostTitle' =>  'required|max:10',
+                'PostBody' =>  'required',
+            ]);
+            $post = $this->posts->find($id);
+            $post->update(request(['PostTitle','PostBody']));
+
+        }
+    else{
         $this->validate($request,[
-            'title' =>  'required|max:10',
-            'body' =>  'required'
-        ]);
-        $this->posts->find($id);
-        $this->posts->update(request(['title','body']));
+                'CommentBody' =>  'required'
+            ]);
+        $comments = $this->comments->find($id);
+        $comments->update(request(['CommentBody','post_id']));
+    }
         session()->flash('message','Data Updated Successfuly');
         return redirect('/admin');
 
@@ -115,6 +142,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         Post::destroy($id);
+        Comment::destroy($id);
         session()->flash('message','Data Deleted Successfuly');
         return redirect('/admin');
     }

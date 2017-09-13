@@ -33,7 +33,7 @@
                   filebrowserBrowseUrl: '{{url('/laravel-filemanager?type=Files')}}',
                   filebrowserUploadUrl: '{{url('/laravel-filemanager/upload?type=Files&_token=')}}'
               };
-              $('textarea').ckeditor(options);
+              $('.my-editor').ckeditor(options);
               // $('.textarea').ckeditor(); // if class is prefered.
           })
       </script>

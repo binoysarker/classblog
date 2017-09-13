@@ -15,7 +15,7 @@
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
-			<table id="example1" class="table table-bordered table-hover ">
+			<table class="table table-bordered table-hover ">
 				<thead>
 					<tr>
 						<th>Title</th>
@@ -28,9 +28,11 @@
 					@foreach($posts as $post)
 						<tr>
 							<td>{{$post->title}} </td>
-							<td>{!! substr($post->body,0,100) !!} </td>
+							<td>{{substr($post->body,0,100)}} </td>
                             <td>{{$post->created_at->diffForHumans()}} </td>
-                            <td><a href="{{url('/blog/posts')}}{{'/'.$post->id.'/edit'}} "><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                            <td class="form-inline">
+                                <a href="{{url('/admin/'.$post->id)}}" class="btn btn-primary btn-sm">Show</a>
+								<a href="{{url('/blog/posts')}}{{'/'.$post->id.'/edit'}} " class="btn btn-info btn-sm">Edit</a>
                                 <form action="{{url('/blog/posts')}}{{'/'.$post->id}}" method="post">
 									{{csrf_field()}}
 									{{method_field('DELETE')}}
@@ -46,11 +48,11 @@
 				</tbody>
 			</table>
 
-		<div class="box-footer clearfix no-border">
-			<button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add Post</button>
+		<div class="box-footer no-border">
+			<button type="button" class="btn btn-default pull-right"><a href="{{url('/admin/create')}}"><i class="fa fa-plus"></i>Add Post</a></button>
 		</div>
 	</div>
-		@endsection
+@endsection
 
 @section('customCss')
     <style>

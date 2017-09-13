@@ -8,31 +8,19 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title','Admin Home')</title>
 
     <!-- Bootstrap-->
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}} ">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}} ">
-    {{--web editor css--}}
-    <link rel="stylesheet" href="{{asset('css/summernote.css')}} ">
+
     
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}} ">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{asset('css/ionicons.min.css')}} ">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/skins/_all-skins.min.css')}} ">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="{{asset('css/morris.css')}} ">
-
-    <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.min.css')}} ">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{asset('css/daterangepicker.css')}} ">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}} ">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{--custom css--}}
@@ -43,33 +31,28 @@
 <!-- jQuery 3 -->
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/tether.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    {{--web editor js section--}}
-    <script !src="{{asset('js/summernote.js')}} "></script>
-    <!-- Morris.js charts -->
-    <script src="{{ asset('js/raphael.min.js') }}"></script>
-    <script src="{{ asset('js/morris.min.js') }}"></script>
-    <!-- Sparkline -->
-    <script src="{{ asset('js/jquery.sparkline.min.js') }}"></script>
-
-    <script src="{{ asset('js/jquery.knob.min.js') }}"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="{{ asset('js/bootstrap3-wysihtml5.all.min.js') }}"></script>
-    <!-- Slimscroll -->
-    <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('js/fastclick.js') }}"></script>
-    <!-- AdminLTE App -->
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
 
     <script src="{{ asset('js/app.js') }}"></script>
+
+    {{--ckeditor section--}}
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var options = {
+                filebrowserImageBrowseUrl: '{{url('/laravel-filemanager?type=Images')}}',
+                filebrowserImageUploadUrl: '{{url('/laravel-filemanager/upload?type=Images&_token=')}}',
+                filebrowserBrowseUrl: '{{url('/laravel-filemanager?type=Files')}}',
+                filebrowserUploadUrl: '{{url('/laravel-filemanager/upload?type=Files&_token=')}}'
+            };
+            $('.my-editor').ckeditor(options);
+            // $('.textarea').ckeditor(); // if class is prefered.
+        })
+    </script>
     @yield('custom.js')
 
 
@@ -88,9 +71,7 @@
         <!-- Logo -->
         <a href="{{route('admin.index')}} " class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A</b>LT</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Admin</b>LTE</span>
+            <img src="{{ asset('photos/Admin.png') }}" class="img-circle img-sm" alt="User Image">
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-default navbar-static-top">
@@ -126,7 +107,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }}</span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -155,26 +136,27 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="{{ asset('images/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>Alexander Pierce</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                </div>
+                @if(isset(auth()->user()->name))
+                    <div class="pull-left image">
+                        <img src="{{ asset('photos/1/Binoy Sarker.jpg') }}" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>{{Auth::user()->name}}</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
             </div>
-            <!-- search form -->
+        <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
                 </div>
             </form>
-            <!-- /.search form -->
-            <!-- sidebar menu: : style can be found in sidebar.less -->
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
 
@@ -184,7 +166,7 @@
                     <a href="#">
                         <i class="fa fa-table"></i> <span>Posts</span>
                         <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+                            <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
@@ -198,7 +180,7 @@
                     <a href="#">
                         <i class="fa fa-table"></i> <span>Comments</span>
                         <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+                            <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
@@ -210,6 +192,7 @@
 
 
             </ul>
+            @endif
         </section>
         <!-- /.sidebar -->
     </aside>

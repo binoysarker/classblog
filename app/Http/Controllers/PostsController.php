@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,11 @@ class PostsController extends Controller
             case 'guest':
                 return Auth::guard('guest');
             break;
-            default:
+            case 'admin':
                 return Auth::guard('admin');
+            break;
+            default:
+                return Auth::guard();
             break;
         }
     }
@@ -43,9 +47,25 @@ class PostsController extends Controller
      */
     public function index()
     {
-//        $posts = new Post;
-        $posts = Post::latest()->get();
-        return view('posts.index',compact('posts'));
+        /*
+         *set the quarry for the archives and not to make repetition of the same quarry.
+         * I cut the quarry section and wrap it in the archives method and then in the appServiceProvider i make a view composer technique
+         * so that when there is a section of partials.sidebar then you have to load the page
+         *
+         */
+        $archives = Post::archives();
+//      to get the latest posts render to the view
+        $posts = Post::latest();
+
+        if ($month = request('month')){
+            $posts->whereMonth('created_at',Carbon::parse($month)->month);
+        }
+        if ($year = request('month')){
+            $posts->whereYear('created_at',Carbon::parse($year)->year);
+        }
+        $posts = $posts->get();
+
+        return view('posts.index',compact('posts','archives'));
     }
 
     /**
@@ -67,12 +87,12 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'title' =>  'required|max:10',    
-            'body' =>  'required'    
+            'PostTitle' =>  'required|max:10',
+            'PostBody' =>  'required'
             ]);
 
 
-        Post::create(request(['title','body']));
+        Post::create(request(['PostTitle','PostBody']));
         session()->flash('message','Data Inserted Successfuly');
         return redirect('/blog/posts');
     }
@@ -111,11 +131,11 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'title' =>  'required|max:10',    
-            'body' =>  'required'    
+            'PostTitle' =>  'required|max:10',
+            'PostBody' =>  'required'
             ]);
         $post = Post::find($id);
-        $post->update(request(['title','body']));
+        $post->update(request(['PostTitle','PostBody']));
         session()->flash('message','Data Updated Successfuly');
         return redirect('/blog/posts');
         

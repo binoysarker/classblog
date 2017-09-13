@@ -65,11 +65,11 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'body'  =>  'required|min:2'
+            'CommentBody'  =>  'required|min:2'
             ]);
 
         Comment::create([
-            'body'  =>  request('body'),
+            'CommentBody'  =>  request('CommentBody'),
             'post_id'  =>  request('post_id')
             ]);
         return back();

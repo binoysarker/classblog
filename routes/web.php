@@ -11,13 +11,18 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('pages.index');
 });
 Route::get('/blog','PagesController@getIndex');
 Route::get('/blog/about','PagesController@getAbout');
 Route::get('/blog/contact','PagesController@getContact');
-
+/*
+ *Posts and Comments controller section
+ */
 Route::resource('/blog/posts', 'PostsController');
 Route::resource('/blog/comments', 'CommentsController');
 
@@ -40,7 +45,7 @@ Route::GET('admin/register','Admin\RegisterController@showRegistrationForm')->na
 Route::POST('admin/register','Admin\RegisterController@register'); 
 
 /*
- * Admin component section
+ * Admin component section to see all posts and comments in the admin section
  *
  */
 

@@ -9,14 +9,14 @@
             <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
             <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
         @else
-            <li class="dropdown">
+            <li class="dropdown ml-auto">
                 <a class="nav-link" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a class="nav-link" href="{{ route('logout') }}"
+                        <a class="navbar-link" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             Logout

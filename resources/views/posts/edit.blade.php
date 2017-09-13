@@ -16,10 +16,10 @@
 				{{method_field('PUT')}}
 				<fieldset class="form-group">
 					<label for="formGroupExampleInput">Title</label>
-					<input type="text" class="form-control" name="title" id="formGroupExampleInput" value="{{$post->title}}" required="">
+					<input type="text" class="form-control" name="PostTitle" id="formGroupExampleInput" value="{{$post->PostTitle}}" required="">
 				</fieldset>
 				<fieldset class="form-group">
-					<textarea class="form-control" name="body" >{{$post->body}}</textarea>
+					<textarea class="form-control my-editor" name="PostBody" >{{$post->PostBody}}</textarea>
 				</fieldset>
 				<fieldset class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" value="Update Post">
