@@ -3,7 +3,7 @@
 @section('userregister')
     <h1>Sign Up for Free</h1>
 
-    <form class="form-horizontal" method="POST" action="{{ route('admin.register') }}">
+    <form class="form-horizontal" method="POST" action="{{ route('auth.register') }}">
         {{ csrf_field() }}
 
         <div class="field-wrap{{ $errors->has('name') ? ' has-error' : '' }}">
