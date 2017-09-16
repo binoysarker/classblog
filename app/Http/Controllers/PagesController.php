@@ -39,6 +39,7 @@ class PagesController extends Controller
             case 'admin':
                 $this->middleware('auth:admin');
                 return Auth::guard('admin');
+                break;
             default:
                 return Auth::guard('admin');
                 break;

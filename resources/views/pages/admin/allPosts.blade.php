@@ -27,18 +27,15 @@
 				<tbody>
 					@foreach($posts as $post)
 						<tr>
-							<td>{{$post->title}} </td>
-							<td>{{substr($post->body,0,100)}} </td>
+							<td>{{$post->PostTitle}} </td>
+							<td>{{substr($post->PostBody,0,100)}} </td>
                             <td>{{$post->created_at->diffForHumans()}} </td>
                             <td class="form-inline">
                                 <a href="{{url('/admin/'.$post->id)}}" class="btn btn-primary btn-sm">Show</a>
-								<a href="{{url('/blog/posts')}}{{'/'.$post->id.'/edit'}} " class="btn btn-info btn-sm">Edit</a>
-                                <form action="{{url('/blog/posts')}}{{'/'.$post->id}}" method="post">
+								<a href="{{url('admin/'.$post->id.'/edit')}}" class="btn btn-info btn-sm">Edit</a>
+                                <form action="{{url('admin/'.$post->id)}}" method="post">
 									{{csrf_field()}}
 									{{method_field('DELETE')}}
-									<input type="hidden" name="title" value="{{$post->title}}">
-									<input type="hidden" name="body" value="{{$post->body}}">
-
 									<input type="submit" value="Delete" class="btn btn-sm btn-primary">
                                 </form>
                             </td>

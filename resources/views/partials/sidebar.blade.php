@@ -12,6 +12,14 @@
     </ol>
   </div>
   <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ol class="list-unstyled">
+      @foreach($categories as $category)
+        <li><a href="{{url('/blog/posts?CategoryName='.$category->CategoryName)}}">{{$category->CategoryName}}</a></li>
+      @endforeach
+    </ol>
+  </div>
+  <div class="sidebar-module">
     <h4>Elsewhere</h4>
     <ol class="list-unstyled">
       <li><a href="#">GitHub</a></li>

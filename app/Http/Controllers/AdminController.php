@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Comment;
 use App\Post;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class AdminController extends Controller
 {
     /**
@@ -16,8 +20,8 @@ class AdminController extends Controller
     public $comments;
     public function __construct()
     {
-        $this->posts = new Post();
-        $this->comments = new Comment();
+        $this->posts = new Post;
+        $this->comments = new Comment;
         $this->middleware('auth:admin');
     }
 
@@ -51,9 +55,46 @@ class AdminController extends Controller
         return view('pages.admin.allPosts',compact('posts'));
     }
     public function getComments(){
-        $comments = $this->comments->all();
-        return view('pages.admin.allComments',compact('comments'));
+        $comments = $this->comments->orderBy('post_id')->get();
+        $posts = $this->posts->all();
+        return view('pages.admin.allComments',compact('comments','posts'));
     }
+
+    public function getCategory()
+    {
+        $categories = Category::all();
+        return view('category.index',compact('categories'));
+    }
+
+    public function updateCategory($id)
+    {
+        $categories = Category::find($id);
+        $getStatus = $categories['CategoryPublished'];
+        if ($getStatus == 0){
+            $categories->CategoryPublished = 1;
+            $categories->save();
+            session()->flash('message','Data Updated Successfuly');
+            return redirect()->back();
+        }
+        else{
+            $categories->CategoryPublished = 0;
+            $categories->save();
+            session()->flash('message','Data Updated Successfuly');
+            return redirect()->back();
+        }
+
+    }
+
+    public function deleteCategory()
+    {
+        $categories = Category::find($id);
+        $categories->delete();
+        session()->flash('message','Data Deleted Successfuly');
+        return redirect()->back();
+
+    }
+
+
 
     /*
      * This part is for AdminController create,edit,update,delete
@@ -112,6 +153,7 @@ class AdminController extends Controller
     }
     public function update(Request $request, $id)
     {
+
         if (isset($request->PostBody)){
             $this->validate($request,[
                 'PostTitle' =>  'required|max:10',
@@ -142,6 +184,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         Post::destroy($id);
+        Comment::query()->where('post_id',$id)->delete();
         Comment::destroy($id);
         session()->flash('message','Data Deleted Successfuly');
         return redirect('/admin');

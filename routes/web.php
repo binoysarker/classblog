@@ -42,7 +42,7 @@ Route::GET('admin-password/reset','Admin\ForgotPasswordController@showLinkReques
 Route::POST('admin-password/reset','Admin\ResetPasswordController@reset');
 Route::GET('admin-password/reset/{token}','Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
 Route::GET('admin/register','Admin\RegisterController@showRegistrationForm')->name('admin.register');
-Route::POST('admin/register','Admin\RegisterController@register'); 
+Route::POST('admin/register','Admin\RegisterController@register');
 
 /*
  * Admin component section to see all posts and comments in the admin section
@@ -51,9 +51,10 @@ Route::POST('admin/register','Admin\RegisterController@register');
 
 Route::GET('admin/allPosts','AdminController@getPosts');
 Route::GET('admin/allComments','AdminController@getComments');
+Route::GET('admin/allCategory','AdminController@getCategory');
+Route::GET('admin/category/{category}','AdminController@updateCategory');
+Route::DELETE('admin/category/{category}','AdminController@deleteCategory');
+
 
 Route::resource('/admin','AdminController');
 
-/*
- *get image of a location from instrogram using the google ali
- */

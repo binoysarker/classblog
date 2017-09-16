@@ -9,7 +9,7 @@
 
 	<div class="blog-post">
 	  <h2 class="blog-post-title">{{$post->PostTitle}}</h2>
-	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Mark</a></p>
+	  <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">{{auth()->user()->name}}</a></p>
 
 	  <div class="m-3"><p class="m-3">{!! $post->PostBody !!} </p></div>
 	  <p class="m-3"><a href="{{ url('/blog/posts/'.$post->id.'/edit') }}" class="btn btn-info" title="">Edit Post</a></p>
@@ -33,6 +33,7 @@
 	  	{{csrf_field()}}
 	  	<fieldset class="form-group">
 	  		<input type="hidden" name="post_id" value="{{$post->id}} ">
+	  		<input type="hidden" name="user_id" value="{{auth()->user()->id}} ">
 	  		<textarea name="CommentBody" class="form-control" rows="2"  required="" placeholder="Add Comment"></textarea>
 	  	</fieldset>
 	  	<fieldset class="form-group">

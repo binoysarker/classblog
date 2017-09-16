@@ -87,9 +87,9 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    {{--<a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
-                    </a>
+                    </a>--}}
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -99,32 +99,42 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right d-inline">
                         <!-- Authentication Links -->
-                        @if (Auth::guest())
+                    @if(isset(auth()->guard()->user()->name))
+                        @if(auth()->guard()->user()->name != 'Admin')
                             <li><a href="{{ url('/admin/login') }}">Login</a></li>
                             <li><a href="{{ url('/admin/register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }}</span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
                         @endif
+
+                        @if(auth()->guard()->user()->name == 'Admin')
+
+                            @if (Auth::guest())
+                                <li><a href="{{ url('/admin/login') }}">Login</a></li>
+                                <li><a href="{{ url('/admin/register') }}">Register</a></li>
+                            @else
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <span>{{ Auth::user()->name }}</span>
+                                    </a>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                                Logout
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif
+                        @endif
+                    @endif
                     </ul>
                 </div>
             </div>
@@ -136,62 +146,78 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                @if(isset(auth()->user()->name))
-                    <div class="pull-left image">
-                        <img src="{{ asset('photos/1/Binoy Sarker.jpg') }}" class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-left info">
-                        <p>{{Auth::user()->name}}</p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-            </div>
-        <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+            @if(isset(auth()->guard()->user()->name))
+                @if(auth()->guard()->user()->name == 'Admin')
+                    @if(isset(auth()->user()->name))
+                        <div class="pull-left image">
+                            <img src="{{ asset('photos/1/Binoy Sarker.jpg') }}" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p>{{auth()->user()->name}}</p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
                 </div>
-            </form>
-        <!-- /.search form -->
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
+            <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                    </button>
+                  </span>
+                    </div>
+                </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
 
-                {{--All Posts section--}}
+                    {{--All Posts section under sidebar--}}
 
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-table"></i> <span>Posts</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('admin/allPosts')}}"><i class="fa fa-circle-o"></i> All Posts</a></li>
-                    </ul>
-                </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-table"></i> <span>Posts</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{url('admin/allPosts')}}"><i class="fa fa-circle-o"></i> All Posts</a></li>
+                        </ul>
+                    </li>
 
-                {{--Comments section--}}
+                    {{--Comments section under sidebar--}}
 
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-table"></i> <span>Comments</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('admin/allComments')}}"><i class="fa fa-circle-o"></i> All Comments</a></li>
-                    </ul>
-                </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-table"></i> <span>Comments</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{url('admin/allComments')}}"><i class="fa fa-circle-o"></i> All Comments</a></li>
+                        </ul>
+                    </li>
+                    {{--Category section under sidebar section--}}
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-table"></i> <span>Category</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{url('admin/allCategory')}}"><i class="fa fa-circle-o"></i> All Category</a></li>
+                        </ul>
+                    </li>
 
 
 
 
-            </ul>
+                </ul>
+                @endif
+            @endif
             @endif
         </section>
         <!-- /.sidebar -->
@@ -200,16 +226,20 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Dashboard
-                <small>Control panel</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
+        @if(isset(auth()->guard()->user()->name))
+            @if(auth()->guard()->user()->name == 'Admin')
+                <section class="content-header">
+                    <h1>
+                        Dashboard
+                        <small>Control panel</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </section>
+            @endif
+        @endif
 
         <!-- Main content -->
         <div class="container">

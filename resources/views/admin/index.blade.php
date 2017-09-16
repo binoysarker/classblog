@@ -52,12 +52,9 @@
                         <td>
                             <a href="{{url('/admin/'.$post->id)}}" class="btn btn-primary btn-sm">Show</a>
                             <a href="{{url('/admin/'.$post->id.'/edit')}}" class="btn btn-info btn-sm">Edit</a>
-                            <form action="{{url('/blog/posts')}}{{'/'.$post->id}}" method="post">
+                            <form action="{{url('admin/'.$post->id)}}" method="post">
                                 {{csrf_field()}}
                                 {{method_field('DELETE')}}
-                                {{--<input type="hidden" name="title" value="{{$post->title}}">
-                                <input type="hidden" name="body" value="{{$post->body}}">--}}
-
                                 <input type="submit" value="Delete" class="btn btn-sm btn-primary">
                             </form>
                         </td>
@@ -70,9 +67,9 @@
         <div class="box-footer no-border">
             <a href="{{url('/admin/create')}}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add Post</a>
         </div>
+        @endif
     </div>
 
-        @endif
 </div>
 
 @endsection
@@ -98,31 +95,30 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($comments as $comment)
-                <tr>
-                    <td>{{$comment->CommentTitle}} </td>
-                    <td>{{substr($comment->CommentBody,0,100)}} </td>
-                    <td>{{$comment->created_at->diffForHumans()}} </td>
-                    <td>
-                        <a href="{{url('/admin/'.$comment->id.'/edit')}}" class="btn btn-info btn-sm">Edit</a>
-                        <form action="{{url('/admin/'.$comment->id)}}" method="post">
-                            {{csrf_field()}}
-                            {{method_field('DELETE')}}
-                            {{--<input type="hidden" name="title" value="{{$comment->title}}">
-                            <input type="hidden" name="body" value="{{$comment->body}}">--}}
 
-                            <input type="submit" value="Delete" class="btn btn-sm btn-primary">
-                        </form>
-                    </td>
+                @foreach($comments as $comment)
+                    <tr>
+                        <td>{{$comment->post->PostTitle}} </td>
+                        <td>{{substr($comment->CommentBody,0,100)}} </td>
+                        <td>{{$comment->created_at->diffForHumans()}} </td>
+                        <td>
+                            <a href="{{url('/admin/'.$comment->id.'/edit')}}" class="btn btn-info btn-sm">Edit</a>
+                            <form action="{{url('/admin/'.$comment->id)}}" method="post">
+                                {{csrf_field()}}
+                                {{method_field('DELETE')}}
+                                <input type="submit" value="Delete" class="btn btn-sm btn-primary">
+                            </form>
+                        </td>
 
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
 
-        <div class="box-footer no-border">
-            <a href="{{url('/admin/create')}}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add Comment</a>
-        </div>
+            <div class="box-footer no-border">
+                <a href="{{url('/admin/create')}}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add Comment</a>
+            </div>
+
     </div>
 </div>
 

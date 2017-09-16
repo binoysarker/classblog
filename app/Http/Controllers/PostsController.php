@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Post;
@@ -53,19 +54,32 @@ class PostsController extends Controller
          * so that when there is a section of partials.sidebar then you have to load the page
          *
          */
+        $categories = Category::categories();
         $archives = Post::archives();
 //      to get the latest posts render to the view
-        $posts = Post::latest();
+        $posts = Post::where('user_id',auth()->user()->id)->latest();
 
-        if ($month = request('month')){
-            $posts->whereMonth('created_at',Carbon::parse($month)->month);
+        switch (request()){
+            case 'month':
+                $month = request('month');
+                $posts->whereMonth('created_at',Carbon::parse($month)->month);
+                break;
+            case 'year':
+                $year = request('year');
+                $posts->whereYear('created_at',Carbon::parse($year)->year);
+                break;
+            case 'CategoryName':
+                $categories = Category::where('user_id',auth()->user()->id)->get();
+                break;
+
+
         }
-        if ($year = request('month')){
-            $posts->whereYear('created_at',Carbon::parse($year)->year);
-        }
+
+
         $posts = $posts->get();
 
-        return view('posts.index',compact('posts','archives'));
+
+        return view('posts.index',compact('posts','archives','categories'));
     }
 
     /**
@@ -75,6 +89,7 @@ class PostsController extends Controller
      */
     public function create()
     {
+
         return view('posts.create');
     }
 
@@ -87,12 +102,30 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'PostTitle' =>  'required|max:10',
+            'PostTitle' =>  'required|max:55',
             'PostBody' =>  'required'
             ]);
+//        validation for Category
+        $this->validate($request,[
+            'CategoryName'  =>  'required|max:55',
+            'CategoryPublished'  =>  'numeric'
+        ]);
+
+        if (isset($request->PostTitle)){
+            Post::create(request(['PostTitle','PostBody','user_id']));
+
+        }
 
 
-        Post::create(request(['PostTitle','PostBody']));
+        if (isset($request->CategoryName)){
+
+//      store data of the category in the Category table
+            Category::create(request(['CategoryName','user_id']));
+
+        }
+
+
+
         session()->flash('message','Data Inserted Successfuly');
         return redirect('/blog/posts');
     }
