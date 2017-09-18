@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -15,10 +16,10 @@ class PostsController extends Controller
      *
      * @return void
      */
+    public $posts;
     public function __construct()
     {
-
-
+        $this->posts = new Post;
         $this->middleware('auth');
     }
 
@@ -54,32 +55,26 @@ class PostsController extends Controller
          * so that when there is a section of partials.sidebar then you have to load the page
          *
          */
+        $posts = new Post;
         $categories = Category::categories();
         $archives = Post::archives();
-//      to get the latest posts render to the view
-        $posts = Post::where('user_id',auth()->user()->id)->latest();
-
-        switch (request()){
-            case 'month':
-                $month = request('month');
-                $posts->whereMonth('created_at',Carbon::parse($month)->month);
-                break;
-            case 'year':
-                $year = request('year');
-                $posts->whereYear('created_at',Carbon::parse($year)->year);
-                break;
-            case 'CategoryName':
-                $categories = Category::where('user_id',auth()->user()->id)->get();
-                break;
-
+        $month = request('month');
+        $year = request('year');
+        $name = \request('CategoryName');
+        if ($month == request('month')){
+            $posts = $posts->whereMonth('created_at',Carbon::parse($month)->month)->where('user_id',\auth()->user()->id)->get();
+            return view('posts.index',compact('posts','archives','categories'));
+        }
+        if ($year == request('year')){
+            $posts = $posts->whereYear('created_at',Carbon::parse($year)->year)->where('user_id',\auth()->user()->id)->get();
+            return view('posts.index',compact('posts','archives','categories'));
 
         }
+        if ($name == \request('CategoryName')){
+           $categories->where('CategoryName',$name)->where('user_id',\auth()->user()->id)->get();
+           return view('posts.index',compact('posts','archives','categories'));
+        }
 
-
-        $posts = $posts->get();
-
-
-        return view('posts.index',compact('posts','archives','categories'));
     }
 
     /**

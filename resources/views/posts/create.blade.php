@@ -17,8 +17,7 @@
 				{{csrf_field()}}
 				<fieldset class="form-group">
 					<input type="hidden" name="user_id" value="{{auth()->user()->id}}">
-
-					<label for="formGroupExampleInput">Title</label>
+                    <label for="formGroupExampleInput">Title</label>
 					<input type="text" class="form-control" name="PostTitle" id="formGroupExampleInput" placeholder="Title" required="">
 				</fieldset>
                 <fieldset class="form-group">

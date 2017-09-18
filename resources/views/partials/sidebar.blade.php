@@ -6,17 +6,21 @@
   <div class="sidebar-module">
     <h4>Archives</h4>
     <ol class="list-unstyled">
-      @foreach($archives as $archive)
-        <li><a href="{{url('/blog/posts?month='.$archive['month'].'&year='.$archive['year'])}}">{{$archive['month']}} {{$archive['year']}}</a></li>
-      @endforeach
+      @if(isset($archives))
+        @foreach($archives as $archive)
+          <li><a href="{{url('/blog/posts?month='.$archive['month'].'&year='.$archive['year'])}}">{{$archive['month']}} {{$archive['year']}}</a></li>
+        @endforeach
+      @endif
     </ol>
   </div>
   <div class="sidebar-module">
     <h4>Categories</h4>
     <ol class="list-unstyled">
-      @foreach($categories as $category)
-        <li><a href="{{url('/blog/posts?CategoryName='.$category->CategoryName)}}">{{$category->CategoryName}}</a></li>
-      @endforeach
+      @if(isset($categories))
+            @foreach($categories as $category)
+                <li><a href="{{url('/blog/posts?CategoryName='.$category->CategoryName)}}">{{$category->CategoryName}}</a></li>
+            @endforeach
+      @endif
     </ol>
   </div>
   <div class="sidebar-module">

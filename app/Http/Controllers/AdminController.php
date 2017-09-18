@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Comment;
 use App\Post;
-use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
 
 class AdminController extends Controller
 {
@@ -18,10 +17,12 @@ class AdminController extends Controller
      */
     public $posts;
     public $comments;
+    public $category;
     public function __construct()
     {
         $this->posts = new Post;
         $this->comments = new Comment;
+        $this->category = new Category;
         $this->middleware('auth:admin');
     }
 
@@ -62,13 +63,13 @@ class AdminController extends Controller
 
     public function getCategory()
     {
-        $categories = Category::all();
+        $categories = $this->category->all();
         return view('category.index',compact('categories'));
     }
 
     public function updateCategory($id)
     {
-        $categories = Category::find($id);
+        $categories = $this->category->find($id);
         $getStatus = $categories['CategoryPublished'];
         if ($getStatus == 0){
             $categories->CategoryPublished = 1;
@@ -85,9 +86,9 @@ class AdminController extends Controller
 
     }
 
-    public function deleteCategory()
+    public function deleteCategory($id)
     {
-        $categories = Category::find($id);
+        $categories = $this->category->find($id);
         $categories->delete();
         session()->flash('message','Data Deleted Successfuly');
         return redirect()->back();

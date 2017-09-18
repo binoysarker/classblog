@@ -19,6 +19,8 @@ class Category extends Model
 //    this method is to show the categories the sidebar
     public static function categories()
     {
-        return  static ::where('user_id',auth()->user()->id)->get();
+        if (isset(auth()->user()->id)){
+            return  static ::where('user_id',auth()->user()->id)->get();
+        }
     }
 }

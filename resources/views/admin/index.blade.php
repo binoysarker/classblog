@@ -95,7 +95,7 @@
             </tr>
             </thead>
             <tbody>
-
+            @if(isset($comments))
                 @foreach($comments as $comment)
                     <tr>
                         <td>{{$comment->post->PostTitle}} </td>
@@ -112,6 +112,7 @@
 
                     </tr>
                 @endforeach
+            @endif
                 </tbody>
             </table>
 

@@ -27,15 +27,15 @@
 					<input type="text" class="form-control" name="PostTitle" id="formGroupExampleInput" value="{{$post->PostTitle}}" required="">
 				</fieldset>
 				<fieldset class="form-group">
-					<textarea class="form-control my-editor
-" name="PostBody" value="Body" >{{$post->PostBody}} </textarea>
+					<textarea class="form-control my-editor" name="PostBody" value="Body" >{{$post->PostBody}} </textarea>
 				</fieldset>
 				<fieldset class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" value="Update Post">
 				</fieldset>
 			</form>
 		</div>
-		@endsection
+	</div>
+@endsection
 
 @section('customCss')
     <style>

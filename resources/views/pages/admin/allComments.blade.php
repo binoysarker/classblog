@@ -27,8 +27,8 @@
                             <td>{{$comment->post->PostTitle}} </td>
                             <td>{{substr($comment->CommentBody,0,100)}} </td>
                                 <td>{{$comment->created_at->diffForHumans()}} </td>
-                                <td><a href=""><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
-                                    <a href=""><i class="fa fa-times-rectangle" aria-hidden="true"></i></a>
+                                <td><a href="{{url('/admin/'.$comment->id.'/edit')}}"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                                    <a href="{{url('/admin/'.$comment->id)}}"><i class="fa fa-times-rectangle" aria-hidden="true"></i></a>
                                 </td>
 
                             </tr>
