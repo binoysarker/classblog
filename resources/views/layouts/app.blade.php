@@ -205,7 +205,7 @@
                 </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{{url('admin/allCategory')}}"><i class="fa fa-circle-o"></i> All Category</a></li>
+                            <li><a href="{{url('/category')}}"><i class="fa fa-circle-o"></i> All Category</a></li>
                         </ul>
                     </li>
 

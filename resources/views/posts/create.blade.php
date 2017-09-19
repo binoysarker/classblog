@@ -22,11 +22,10 @@
 				</fieldset>
                 <fieldset class="form-group">
                     <label for="cat">Category Title</label>
-                    <select class="form-control" name="CategoryName" id="cat">
-                        <option value="Category 1">Category 1</option>
-                        <option value="Category 2">Category 2</option>
-                        <option value="Category 3">Category 3</option>
-                        <option value="Category 4">Category 4</option>
+                    <select class="form-control" name="category_id" >
+						@foreach($categories as $category)
+                        	<option value="{{$category->id}}">{{$category->CategoryName}}</option>
+						@endforeach
                     </select>
                 </fieldset>
 				<fieldset class="form-group">

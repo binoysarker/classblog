@@ -51,10 +51,12 @@ Route::POST('admin/register','Admin\RegisterController@register');
 
 Route::GET('admin/allPosts','AdminController@getPosts');
 Route::GET('admin/allComments','AdminController@getComments');
-Route::GET('admin/allCategory','AdminController@getCategory');
-Route::GET('admin/category/{category}','AdminController@updateCategory');
-Route::DELETE('admin/category/{category}','AdminController@deleteCategory');
 
 
 Route::resource('/admin','AdminController');
+
+Route::resource('/category','CategoryController');
+
+
+
 

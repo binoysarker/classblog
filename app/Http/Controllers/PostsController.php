@@ -62,16 +62,16 @@ class PostsController extends Controller
         $year = request('year');
         $name = \request('CategoryName');
         if ($month == request('month')){
-            $posts = $posts->whereMonth('created_at',Carbon::parse($month)->month)->where('user_id',\auth()->user()->id)->get();
+            $posts = $posts->whereMonth('created_at',Carbon::parse($month)->month)->where('user_id',\auth()->user()->id)->latest()->get();
             return view('posts.index',compact('posts','archives','categories'));
         }
         if ($year == request('year')){
-            $posts = $posts->whereYear('created_at',Carbon::parse($year)->year)->where('user_id',\auth()->user()->id)->get();
+            $posts = $posts->whereYear('created_at',Carbon::parse($year)->year)->where('user_id',\auth()->user()->id)->latest()->get();
             return view('posts.index',compact('posts','archives','categories'));
 
         }
         if ($name == \request('CategoryName')){
-           $categories->where('CategoryName',$name)->where('user_id',\auth()->user()->id)->get();
+           $categories->where('CategoryName',$name)->where('user_id',\auth()->user()->id)->latest()->get();
            return view('posts.index',compact('posts','archives','categories'));
         }
 
@@ -84,8 +84,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create',compact('categories'));
     }
 
     /**
@@ -98,28 +98,16 @@ class PostsController extends Controller
     {
         $this->validate($request,[
             'PostTitle' =>  'required|max:55',
-            'PostBody' =>  'required'
+            'PostBody' =>  'required',
+            'category_id'  =>  'numeric',
+            'user_id'  =>  'numeric'
             ]);
 //        validation for Category
-        $this->validate($request,[
-            'CategoryName'  =>  'required|max:55',
-            'CategoryPublished'  =>  'numeric'
-        ]);
 
         if (isset($request->PostTitle)){
-            Post::create(request(['PostTitle','PostBody','user_id']));
+            Post::create(request(['PostTitle','PostBody','user_id','category_id']));
 
         }
-
-
-        if (isset($request->CategoryName)){
-
-//      store data of the category in the Category table
-            Category::create(request(['CategoryName','user_id']));
-
-        }
-
-
 
         session()->flash('message','Data Inserted Successfuly');
         return redirect('/blog/posts');

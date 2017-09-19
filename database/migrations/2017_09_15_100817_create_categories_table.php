@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('user_id');
             $table->string('CategoryName');
             $table->tinyInteger('CategoryPublished')->default(0);
+            $table->text('CategoryDescription');
             $table->timestamps();
         });
     }

@@ -40,6 +40,7 @@
                     <form class="form" action="{{ url('/admin') }} " method="post">
                         {{csrf_field()}}
                         <fieldset class="form-group">
+                            <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                             @if(isset($post[0]['id']))
                                 <input type="hidden" name="post_id" value="{{$post[0]['id']}} ">
                             @endif

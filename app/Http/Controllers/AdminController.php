@@ -61,42 +61,6 @@ class AdminController extends Controller
         return view('pages.admin.allComments',compact('comments','posts'));
     }
 
-    public function getCategory()
-    {
-        $categories = $this->category->all();
-        return view('category.index',compact('categories'));
-    }
-
-    public function updateCategory($id)
-    {
-        $categories = $this->category->find($id);
-        $getStatus = $categories['CategoryPublished'];
-        if ($getStatus == 0){
-            $categories->CategoryPublished = 1;
-            $categories->save();
-            session()->flash('message','Data Updated Successfuly');
-            return redirect()->back();
-        }
-        else{
-            $categories->CategoryPublished = 0;
-            $categories->save();
-            session()->flash('message','Data Updated Successfuly');
-            return redirect()->back();
-        }
-
-    }
-
-    public function deleteCategory($id)
-    {
-        $categories = $this->category->find($id);
-        $categories->delete();
-        session()->flash('message','Data Deleted Successfuly');
-        return redirect()->back();
-
-    }
-
-
-
     /*
      * This part is for AdminController create,edit,update,delete
      * */
@@ -108,7 +72,8 @@ class AdminController extends Controller
      * */
     public function create()
     {
-        return view('admin.create');
+        $categories = Category::all();
+        return view('admin.create',compact('categories'));
     }
 
     public function store(Request $request)
@@ -117,21 +82,25 @@ class AdminController extends Controller
             $this->validate($request,[
                 'PostTitle' =>  'required|max:10',
                 'PostBody' =>  'required',
+                'category_id'       =>  'numeric',
+                'user_id'       =>  'numeric'
             ]);
-            $this->posts->create(request(['PostTitle','PostBody']));
+            $this->posts->create(request(['PostTitle','PostBody','user_id','category_id']));
             session()->flash('message','Data Stored Successfuly');
             return redirect('/admin');
 
         }
+        if (isset($request->CategoryPublished)){
+            Category::where('id',$request->category_id)->where('CategoryPublished',$request->CategoryPublished)->save();
+
+        }
     else{
         $this->validate($request,[
-                'CommentBody' =>  'required'
+            'CommentBody'   =>  'required',
+            'post_id'       =>  'required|numeric'
             ]);
 
-        $this->comments->create([
-                'CommentBody'   =>  $request->CommentBody,
-                'post_id'       =>  $request->post_id
-            ]);
+        $this->comments->create(\request(['CommentBody','user_id','post_id']));
         return redirect()->back();
     }
 

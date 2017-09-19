@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['CategoryName','user_id'];
+    protected $fillable = ['user_id','CategoryName','CategoryPublished','CategoryDescription'];
     public function user()
     {
         return $this->belongsTo(User::class);

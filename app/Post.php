@@ -25,12 +25,14 @@ class Post extends Model
 
     public static function archives()
     {
-        return static::selectRaw('year(created_at) as year,monthname(created_at) as month,COUNT(*) as published')
-            ->groupBy('year','month')
-            ->orderByRaw('min(created_at) desc')
-            ->where('user_id',auth()->user()->id)
-            ->get()
-            ->toArray();
+        if (isset(auth()->user()->id)){
+            return static::selectRaw('year(created_at) as year,monthname(created_at) as month,COUNT(*) as published')
+                ->groupBy('year','month')
+                ->orderByRaw('min(created_at) desc')
+                ->where('user_id',auth()->user()->id)
+                ->get()
+                ->toArray();
+        }
     }
 
 

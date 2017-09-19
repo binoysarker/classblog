@@ -21,22 +21,22 @@
 				<legend><strong>Create Post</strong></legend>
 				{{csrf_field()}}
 				<fieldset class="form-group">
+					<input type="hidden" name="user_id" value="{{auth()->user()->id}}">
 					<label for="formGroupExampleInput">Title</label>
 					<input type="text" class="form-control" name="PostTitle" id="formGroupExampleInput" placeholder="Title" required="">
 				</fieldset>
 				<fieldset class="form-group">
-					<label for="cat">Category Title</label>
-					<select class="form-control" name="CategoryName" id="cat">
-						<option value="Category 1">Category 1</option>
-						<option value="Category 2">Category 2</option>
-						<option value="Category 3">Category 3</option>
-						<option value="Category 4">Category 4</option>
+					<select name="category_id" id="cat">
+						@foreach($categories as $category)
+							<option value="{{$category->id}}">{{$category->CategoryName}}</option>
+						@endforeach
 					</select>
 				</fieldset>
 				<fieldset class="form-group">
 					<select name="CategoryPublished" id="">
-						<option value="1">Published</option>
-						<option value="0">Unpublished</option>
+                        @foreach($categories as $category)
+						    <option value="{{$category->CategoryPublished}}">{{$category->CategoryPublished == 1 ? 'Published':'Unpublished'}}</option>
+                        @endforeach
 					</select>
 				</fieldset>
 				<fieldset class="form-group">
